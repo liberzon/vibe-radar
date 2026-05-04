@@ -1,0 +1,31 @@
+# Template — copy to `config/sources.yaml` and fill in your own sources.
+#
+# `config/sources.yaml` is gitignored. Keep your operational list private:
+# the specific subreddits and search queries you choose are part of your
+# research methodology and don't belong on a public repo.
+#
+# Each Reddit source: { kind: subreddit|search|user, name|query, listing|sort,
+#                       poll_interval_sec, fetch_comments, comment_depth,
+#                       max_items_per_tick }
+# Each HN source:     { query, tags, pages }
+
+sources:
+  # Example shapes — replace with your own.
+  - kind: subreddit
+    name: <subreddit-name>          # no /r/ prefix
+    listing: new                    # new | hot | top | rising
+    poll_interval_sec: 600
+    fetch_comments: true
+    comment_depth: 5
+
+  - kind: search
+    query: '<your search query>'
+    sort: new
+    timeframe: week
+    poll_interval_sec: 1800
+    fetch_comments: false
+
+hn_sources:
+  - query: <your search term>
+    tags: story                     # story | comment | show_hn | launch_hn | (show_hn,launch_hn)
+    pages: 3

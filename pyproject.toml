@@ -1,0 +1,40 @@
+[project]
+name = "vibe-radar"
+version = "0.1.0"
+description = "Configurable read-only radar over public posts and comments via official platform APIs"
+requires-python = ">=3.11"
+readme = "README.md"
+dependencies = [
+    "httpx>=0.27",
+    "asyncpg>=0.29",
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "pyyaml>=6.0",
+    "tenacity>=8.2",
+    "structlog>=24.1",
+]
+
+[project.optional-dependencies]
+praw = ["praw>=7.7"]
+cluster = ["scikit-learn>=1.4", "numpy>=1.26"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "ruff>=0.4"]
+
+[project.scripts]
+vibe-radar = "vibe_radar.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/reddit_collector",
+    "src/hn_collector",
+    "src/analysis",
+    "src/common",
+    "src/vibe_radar",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

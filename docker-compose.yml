@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: reddit
+      POSTGRES_PASSWORD: reddit
+      POSTGRES_DB: reddit
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+
+  # Optional. Run with: docker compose --profile collect up collector
+  # NOTE: extraction (`scripts/run_extract.py`) is intentionally NOT here —
+  # it runs on the host so the `claude` CLI can use your CC subscription.
+  collector:
+    profiles: ["collect"]
+    build: .
+    env_file: .env
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://reddit:reddit@postgres:5432/reddit
+    command: ["python", "-m", "scripts.run_all"]
+
+volumes:
+  pgdata: {}

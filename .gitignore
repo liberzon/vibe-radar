@@ -1,0 +1,31 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# project artifacts
+*.log
+/tmp/
+
+# operational source list (kept private; .example file is the public template)
+config/sources.yaml
+
+# personal/strategic docs (kept local only)
+*.local.md
